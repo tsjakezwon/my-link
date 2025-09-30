@@ -3,109 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>나만의 바로가기</title>
+    <title>학습팀 링크 모음</title>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ===== 변경된 부분 시작 ===== */
+        /* CSS 변수 (추후 색상 조정을 쉽게 하기 위함) */
+        :root {
+            --background-start: #a3bded;
+            --background-end: #6991c7;
+            --card-bg-light: rgba(255, 255, 255, 0.15); /* 빛을 머금은 듯한 연한 배경 */
+            --card-bg-hover: rgba(255, 255, 255, 0.3); /* 마우스 오버 시 투명도 증가 */
+            --border-light: rgba(255, 255, 255, 0.3);
+            --border-hover: rgba(255, 255, 255, 0.6);
+            --text-color: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.15); /* 부드러운 그림자 */
+            --icon-color: rgba(255, 255, 255, 0.8); /* 아이콘 색상 */
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            /* 화려한 그라데이션 배경 추가 */
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
+            /* 부드럽게 움직이는 그라데이션 배경: '평온함'과 '리퀴드' 느낌 */
+            background: linear-gradient(135deg, var(--background-start), var(--background-end));
+            background-size: 200% 200%; /* 애니메이션을 위해 크기 확대 */
+            animation: backgroundShift 20s ease infinite alternate; /* 부드러운 배경 전환 애니메이션 */
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: var(--text-color);
             margin: 0;
-            padding: 20px;
+            padding: 5vh 20px; /* 뷰포트 높이에 따른 패딩 */
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             min-height: 100vh;
             box-sizing: border-box;
+            overflow-x: hidden; /* 가로 스크롤 방지 */
         }
 
-        /* 배경이 움직이도록 하는 애니메이션 */
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* 배경 그라데이션 애니메이션 */
+        @keyframes backgroundShift {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
         }
-        /* ===== 변경된 부분 끝 ===== */
 
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             width: 100%;
+            margin-bottom: 5vh; /* 하단 여백 추가 */
         }
 
-        /* ===== 변경된 부분 시작 ===== */
         h1 {
-            /* 흰색 폰트와 그림자 효과로 가독성 확보 */
-            color: white;
+            font-size: clamp(32px, 5vw, 64px); /* 반응형 폰트 사이즈 */
+            font-weight: 700;
             text-align: center;
-            margin-bottom: 40px;
-            font-size: 2.5em;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: clamp(40px, 8vh, 80px); /* 반응형 마진 */
+            letter-spacing: -0.02em;
+            opacity: 0.9;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 은은한 제목 그림자 */
         }
-        /* ===== 변경된 부분 끝 ===== */
 
         .link-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px; /* 카드 간격 */
         }
 
-        /* ===== 리퀴드 글라스 스타일의 핵심 부분 ===== */
         .link-card {
-            /* (1) 반투명한 배경 */
-            background: rgba(255, 255, 255, 0.1);
-            
-            /* (2) 뒷 배경을 흐릿하게 만드는 블러 효과 */
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px); /* Safari 브라우저 호환성 */
-
-            /* (3) 은은한 테두리로 경계 구분 */
-            border: 1px solid rgba(255, 255, 255, 0.2);
-
-            border-radius: 15px; /* 좀 더 둥글게 */
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-            
+            /* '리퀴드 글라스'의 핵심: 반투명 소재, 블러, 부드러운 테두리 */
+            background: var(--card-bg-light);
+            backdrop-filter: blur(15px); /* 좀 더 강한 블러 */
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--border-light); /* 은은한 테두리 */
+            border-radius: 20px; /* 더 둥근 모서리 */
+            box-shadow: 0 10px 30px var(--shadow-color); /* 부드럽고 깊은 그림자 */
             text-decoration: none;
-            color: white; /* 폰트 색상 변경 */
-            padding: 20px;
+            color: var(--text-color);
+            padding: 25px 30px;
             text-align: center;
-            font-weight: 600; /* 조금 더 굵게 */
-            transition: all 0.2s ease-in-out;
+            font-weight: 500;
+            font-size: 1.1em;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1.0); /* 부드럽고 유기적인 애니메이션 */
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 50px;
+            min-height: 80px;
+            position: relative; /* 아이콘 위치 지정을 위해 */
+            overflow: hidden; /* 배경 애니메이션이 카드 밖으로 나가지 않게 */
         }
 
+        /* 마우스 오버 시 '공간에서 떠오르는' 듯한 효과 */
         .link-card:hover {
-            /* 마우스를 올렸을 때 더 밝아지는 효과 */
-            background: rgba(255, 255, 255, 0.25);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            transform: translateY(-5px);
+            background: var(--card-bg-hover);
+            border: 1px solid var(--border-hover);
+            transform: translateY(-8px) scale(1.02); /* 살짝 위로 뜨고 커짐 */
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25); /* 그림자도 더 깊어짐 */
         }
-        /* ===== 변경된 부분 끝 ===== */
+
+        /* 링크 카드 안의 아이콘 (오른쪽 상단 화살표) */
+        .link-card::after {
+            content: '↗'; /* 화살표 유니코드 문자 */
+            font-size: 0.9em;
+            font-weight: 400;
+            opacity: 0.6;
+            color: var(--icon-color);
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            transition: opacity 0.3s ease;
+        }
+
+        .link-card:hover::after {
+            opacity: 1; /* 호버 시 더 선명하게 */
+        }
 
         .loading {
             text-align: center;
-            font-size: 18px;
-            color: white;
+            font-size: 1.2em;
+            color: var(--text-color);
+            opacity: 0.7;
+            margin-top: 50px;
+        }
+
+        /* 푸터 (선택 사항: 애플처럼 하단에 저작권 표시 등) */
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.9em;
+            opacity: 0.6;
+            color: var(--text-color);
+        }
+
+        /* 모바일 반응형 디자인 */
+        @media (max-width: 768px) {
+            body {
+                padding: 3vh 15px;
+            }
+            h1 {
+                font-size: 40px;
+                margin-bottom: 40px;
+            }
+            .link-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
+            }
+            .link-card {
+                padding: 20px 25px;
+                font-size: 1em;
+                min-height: 70px;
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>💎 My Liquid Links</h1>
+        <h1>학습팀 링크 모음</h1>
         <div id="link-grid" class="link-grid">
             <div class="loading">링크를 불러오는 중...</div>
         </div>
     </div>
 
+    <div class="footer">
+        © 2025 My Links. All rights reserved.
+    </div>
+
     <script>
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // https://docs.google.com/spreadsheets/d/e/2PACX-1vS0HCFpZuZVQaK8XWJmFi0GIJHVEpr3vNWvhob5gx1tucgYrLedM8M_9s5xxgJPBLLrJvCRFDoigsRN/pubhtml?gid=0&single=true
+        // 중요: 이 부분은 반드시 이전에 사용하던 본인의 Google 시트 CSV 링크로 바꿔주세요!
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        const csvUrl = '여기에_구글_시트_CSV_링크_붙여넣기';
+        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS0HCFpZuZVQaK8XWJmFi0GIJHVEpr3vNWvhob5gx1tucgYrLedM8M_9s5xxgJPBLLrJvCRFDoigsRN/pubhtml?gid=0&single=true';
 
         async function fetchAndDisplayLinks() {
             const grid = document.getElementById('link-grid');
